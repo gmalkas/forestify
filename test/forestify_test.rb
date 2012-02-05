@@ -82,4 +82,27 @@ class ForestifyTest < Test::Unit::TestCase
 
 		assert (not vehicle.is_node?)
 	end
+
+	def test_should_have_children_when_node
+    vehicle = Tag.new(name: "Vehicle")
+		vehicle.save!
+		car = Tag.new(name: "Car", parent: vehicle.id)
+		car.save!
+		plane = Tag.new(name: "plane", parent: vehicle.id)
+		plane.save!
+		boat = Tag.new(name: "Boat", parent: vehicle.id)
+		boat.save!
+
+		vehicle.reload
+
+		assert_equal 3, vehicle.children.size
+	end
+
+	def test_should_not_have_children_when_leaf
+    vehicle = Tag.new(name: "Vehicle")
+		vehicle.save!
+
+		assert_equal 0, vehicle.children.size
+	end
+
 end

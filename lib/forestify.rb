@@ -35,6 +35,11 @@ module Forestify
 			end
 		end
 
+		def children
+      [] if is_leaf?
+			self.class.where('left_position > ?', self.left_position).where('right_position < ?', self.right_position)
+		end
+
     def is_node?
 			(self.right_position - self.left_position) > 1
 		end
