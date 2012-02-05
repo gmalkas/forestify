@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
 	s.version = "1.0.0"
 	s.author = "Gabriel Malkas"
 	s.license = 'MIT'
-	s.description = 'Forestify brings a tree structure to your Active Record models'
+	s.description = 'Forestify brings a tree data-structure to your Active Record models'
 	s.summary = s.description
 	s.email = 'gabriel.malkas@gmail.com'
 	s.files = ['README.md', 'LICENSE', 'lib/forestify.rb']
