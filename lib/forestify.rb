@@ -3,7 +3,7 @@ module Forestify
 		unless included_modules.include? InstanceMethods
 			include InstanceMethods
 		end
-		before_validation :initialize_position
+		before_create :initialize_position
 		attr_accessor :parent
 	end
 
@@ -30,12 +30,17 @@ module Forestify
 				# update nodes on the right hand side of parent
 				self.class.update_all "left_position = left_position + 2", ['left_position > ?', p.right_position]
 				self.class.update_all "right_position = right_position + 2", ['right_position > ?', p.right_position]
+				# update parent
 				p.update_attribute 'right_position', p.right_position + 2
 			end
 		end
 
+    def is_node?
+			(self.right_position - self.left_position) > 1
+		end
+		
 		def is_leaf?
-			(self.right_position - self.left_position) == 1
+			!is_node?
 		end
 	end
 end
