@@ -33,6 +33,10 @@ module Forestify
 				p.update_attribute 'right_position', p.right_position + 2
 			end
 		end
+
+		def is_leaf?
+			(self.right_position - self.left_position) == 1
+		end
 	end
 end
 

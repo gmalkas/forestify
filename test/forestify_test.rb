@@ -32,4 +32,11 @@ class ForestifyTest < Test::Unit::TestCase
 		assert_equal 1, car.level
 	end
 
+	def test_should_be_leaf
+    car = Tag.new(name: "Car")
+		car.save!
+
+		assert car.is_leaf?
+	end
+
 end
