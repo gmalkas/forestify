@@ -104,5 +104,14 @@ class ForestifyTest < Test::Unit::TestCase
 
 		assert_equal 0, vehicle.children.size
 	end
+	
+	def test_should_have_parents
+    vehicle = Tag.new(name: "Vehicle")
+		vehicle.save!
+		car = Tag.new(name: "Car", parent: vehicle.id)
+		car.save!
+
+		assert_equal vehicle.id, car.parents.first.id
+	end
 
 end
