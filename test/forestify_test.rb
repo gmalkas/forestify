@@ -119,4 +119,40 @@ class ForestifyTest < Test::Unit::TestCase
 		assert_equal Set.new([vehicle, car]), Set.new(porsche.parents)
 	end
 
+	def test_should_update_nodes_when_parent_is_deleted
+    vehicle = Tag.new(name: "Vehicle")
+		vehicle.save!
+		car = Tag.new(name: "Car", parent: vehicle.id)
+		car.save!
+		porsche = Tag.new(name: "Porsche", parent: car.id)
+		porsche.save!
+    
+		car.reload
+    car.destroy
+    
+		vehicle.reload
+		porsche.reload
+
+		assert_equal 3, vehicle.right_position, "Vehicle's right position should have been updated"
+		assert_equal 2, porsche.right_position, "Porsche's right position should have been updated"
+	end
+
+	def test_should_updates_leafs_when_node_is_deleted
+    vehicle = Tag.new(name: "Vehicle")
+		vehicle.save!
+		car = Tag.new(name: "Car", parent: vehicle.id)
+		car.save!
+		animal = Tag.new(name: "Animal")
+		animal.save!
+    
+    car.reload
+		car.destroy
+
+		vehicle.reload
+		animal.reload
+    
+		assert_equal 1, vehicle.right_position, "Vehicle's right position should have been updated"
+		assert_equal 2, animal.left_position, "Animal's left position should have been updated"
+	end
+
 end

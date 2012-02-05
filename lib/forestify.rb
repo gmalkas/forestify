@@ -4,6 +4,7 @@ module Forestify
 			include InstanceMethods
 		end
 		before_create :initialize_position
+		before_destroy :update_positions_after_delete
 		attr_accessor :parent
 	end
 
@@ -34,6 +35,21 @@ module Forestify
 				p.update_attribute 'right_position', p.right_position + 2
 			end
 		end
+
+		def update_positions_after_delete
+			if is_node?
+				# Update nodes to the right
+				self.class.update_all "left_position = left_position - 2", ['left_position > ?', self.right_position]
+				self.class.update_all "right_position = right_position - 2", ['right_position > ?', self.right_position]
+				# Update children
+				self.class.update_all "level = level - 1", ['left_position > ? AND right_position < ?', self.left_position, self.right_position]
+				self.class.update_all "left_position = left_position - 1, right_position = right_position - 1", ['left_position > ? AND right_position < ?', self.left_position, self.right_position]
+			else
+				self.class.update_all "left_position = left_position - 2", ['left_position > ?', self.right_position]
+				self.class.update_all "right_position = right_position - 2", ['right_position > ?', self.right_position]
+			end
+		end
+
 
 		def parents
 			self.class.where('left_position < ?', self.left_position).where('right_position > ?', self.right_position)
