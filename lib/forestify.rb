@@ -4,6 +4,7 @@ module Forestify
 			include InstanceMethods
 		end
 		before_validation :initialize_position
+		attr_accessor :parent
 	end
 
 	module InstanceMethods
