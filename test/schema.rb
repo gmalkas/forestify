@@ -5,6 +5,6 @@ ActiveRecord::Schema.define(:version => 0) do
 		t.integer :right_position
 		t.integer :level
 	end
-	add_index :tags, :left_position, :unique => true
-	add_index :tags, :right_position, :unique => true
+	# add_index :tags, :left_position, :unique => true
+	# add_index :tags, :right_position, :unique => true
 end
