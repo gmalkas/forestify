@@ -110,8 +110,13 @@ class ForestifyTest < Test::Unit::TestCase
 		vehicle.save!
 		car = Tag.new(name: "Car", parent: vehicle.id)
 		car.save!
+		porsche = Tag.new(name: "Porsche", parent: car.id)
+		porsche.save!
 
-		assert_equal vehicle.id, car.parents.first.id
+		vehicle.reload
+		car.reload
+
+		assert_equal Set.new([vehicle, car]), Set.new(porsche.parents)
 	end
 
 end
