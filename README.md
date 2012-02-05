@@ -31,7 +31,7 @@ car.is_node?
 
 # Installation
 
-Run ```gem install forestify``` or add this line to your Gemfile  ```gem 'forestify``` then run ```bundle install```
+Run ```gem install forestify``` or add this line to your Gemfile  ```gem 'forestify'``` then run ```bundle install```
 
 Although I will add generators later, you still need to manually add migrations to make your models "forestify-ready".
 
