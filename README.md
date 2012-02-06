@@ -14,12 +14,9 @@ end
 You can then do something like this :
 
 ```ruby
-vehicle = Tag.new(name: "Vehicle")
-vehicle.save!
-car = Tag.new(name: "Car", parent: vehicle.id)
-car.save!
-audi = Tag.new(name: "Audi", parent: car.id)
-audi.save!
+vehicle = Tag.create!(name: "Vehicle")
+car = Tag.create!(name: "Car", parent_id: vehicle.id)
+audi = Tag.create!(name: "Audi", parent_id: car.id)
 
 audi.parents
 # => [vehicle, car]
