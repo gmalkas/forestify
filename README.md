@@ -49,9 +49,9 @@ Although I will add generators later, you still need to manually add migrations 
 
 ```ruby
 change_table :tags do |t|
-	t.integer :left_position
-	t.integer :right_position
-	t.integer :level
+  t.integer :left_position
+  t.integer :right_position
+  t.integer :level
 end
 ```
 
