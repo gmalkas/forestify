@@ -5,7 +5,7 @@ module Forestify
 		end
 		before_create :initialize_position
 		before_destroy :update_positions_after_delete
-		attr_accessor :parent
+		attr_accessor :parent_id
 	end
 
 	module InstanceMethods
@@ -14,7 +14,7 @@ module Forestify
 		# Should be run only once
 		def initialize_position
 			# @parent = -1 is the option 'No parent'
-			if @parent.nil? || @parent == "-1"
+			if @parent_id.nil? || @parent_id == "-1"
 				# No parent has been specified, we need to add this leaf
 				# to the right side of the last root node.
 				last = self.class.order("right_position DESC").first
@@ -23,8 +23,8 @@ module Forestify
 				self.level = 0
 			else
 				# Makes sure it's an integer
-				@parent = @parent.to_i
-				p = self.class.find(@parent)
+				@parent_id = @parent_id.to_i
+				p = self.class.find(@parent_id)
 				self.left_position = p.right_position
 				self.right_position = self.left_position + 1
 				self.level = p.level + 1
@@ -50,9 +50,12 @@ module Forestify
 			end
 		end
 
-
 		def parents
 			self.class.where('left_position < ?', self.left_position).where('right_position > ?', self.right_position)
+		end
+
+		def parent
+      self.parents.where('level = ?', self.level - 1).first
 		end
 
 		def children
