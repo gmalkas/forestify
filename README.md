@@ -40,6 +40,13 @@ change_table :tags do |t|
 end
 ```
 
+# Updates
+## 2012-02-06 version 1.0.1
+* Cleaned up tests, added two methods: 'siblings' and 'parent'
+
+## 2012-02-05 version 1.0.0
+* First draft
+
 # LICENSE
 
 Copyright 2012 Gabriel Malkas. Released under MIT License. See LICENSE for details.
