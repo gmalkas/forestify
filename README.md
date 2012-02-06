@@ -14,9 +14,20 @@ end
 You can then do something like this :
 
 ```ruby
+# This produces the following tree
+# { left_position, name, right_position, level }
+# { 0, Vehicle, 9, 0 } { 10, Animal, 11, 0}
+# { 1, Car, 4, 1 } { 5, Plane, 6, 1 } { 7, Boat, 8, 1 }
+# { 2, Audi, 3, 2}
+
 vehicle = Tag.create!(name: "Vehicle")
+animal = Tag.create!(name: "Animal")
 car = Tag.create!(name: "Car", parent_id: vehicle.id)
+plane = Tag.create!(name: "plane", parent_id: vehicle.id)
+boat = Tag.create!(name: "Boat", parent_id: vehicle.id)
 audi = Tag.create!(name: "Audi", parent_id: car.id)
+
+[vehicle, animal, car, plane, boat, audi].each { |n| n.reload }
 
 audi.parents
 # => [vehicle, car]
@@ -24,6 +35,10 @@ car.is_leaf?
 # => false
 car.is_node?
 # => true
+vehicle.parent.nil?
+# => true
+car.siblings.all
+# => [plane, boat]
 ```
 
 # Installation
