@@ -173,22 +173,42 @@ class ForestifyTest < Test::Unit::TestCase
 		assert_equal nil, vehicle.parent
 	end
 
-	# def test_should_have_siblings
-    # vehicle = Tag.new(name: "Vehicle")
-	# 	vehicle.save!
-	# 	car = Tag.new(name: "Car", parent: vehicle.id)
-	# 	car.save!
-    # plane = Tag.new(name: "Plane", parent: vehicle.id)
-	# 	plane.save!
-	# 	rocket = Tag.new(name: "Rocket", parent: vehicle.id)
-	# 	rocket.save!
+	def test_should_have_siblings
+    vehicle = Tag.new(name: "Vehicle")
+		vehicle.save!
+		car = Tag.new(name: "Car", parent_id: vehicle.id)
+		car.save!
+    plane = Tag.new(name: "Plane", parent_id: vehicle.id)
+		plane.save!
+		rocket = Tag.new(name: "Rocket", parent_id: vehicle.id)
+		rocket.save!
 
-	# 	vehicle.reload
-	# 	car.reload
-	# 	plane.reload
-	# 	rocket.reload
+		vehicle.reload
+		car.reload
+		plane.reload
 
-	# 	assert_equal 2, car.siblings.size
-	# end
+		assert_equal 2, car.siblings.size
+	end
+
+	def test_should_not_have_any_siblings
+    vehicle = Tag.new(name: "Vehicle")
+		vehicle.save!
+		car = Tag.new(name: "Car", parent_id: vehicle.id)
+		car.save!
+
+		vehicle.reload
+		
+		assert_equal 0, car.siblings.size
+	end
+
+	def test_should_have_siblings_when_root
+    vehicle = Tag.new(name: "Vehicle")
+		vehicle.save!
+		animal = Tag.new(name: "Animal")
+		animal.save!
+		
+		vehicle.reload
+		assert_equal 1, vehicle.siblings.size
+	end
 
 end

@@ -63,6 +63,14 @@ module Forestify
 			self.class.where('left_position > ?', self.left_position).where('right_position < ?', self.right_position)
 		end
 
+		def siblings
+			if self.parent.nil?
+				self.class.where('level = 0').where('id != ?', self.id)
+			else
+				self.parent.children.where('level = ?', self.level).where('id != ?', self.id)
+			end
+		end
+
     def is_node?
 			(self.right_position - self.left_position) > 1
 		end
