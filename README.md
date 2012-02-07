@@ -69,6 +69,9 @@ end
 
 # Updates
 
+## 2012-02-07 version 1.0.4
+* Fix migration template
+
 ## 2012-02-07 version 1.0.3
 * Added generator documentation and updated README.
 
