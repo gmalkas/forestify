@@ -45,17 +45,36 @@ car.siblings.all
 
 Run ```gem install forestify``` or add this line to your Gemfile  ```gem 'forestify'``` then run ```bundle install```
 
-Although I will add generators later, you still need to manually add migrations to make your models "forestify-ready".
+You can generate a migration to add the necessary columns to your existing models :
+
+```
+rails generate forestify Tag
+```
+
+will create the following migration :
 
 ```ruby
-change_table :tags do |t|
-  t.integer :left_position
-  t.integer :right_position
-  t.integer :level
+class AddForestifyToTag < ActiveRecord::Migration
+
+  def self.change
+    change_table :tags do |t|
+      t.integer :forestify_left_position
+      t.integer :forestify_right_position
+      t.integer :forestify_level
+     end
+  end
+
 end
 ```
 
 # Updates
+
+## 2012-02-07 version 1.0.3
+* Added generator documentation and updated README.
+
+## 2012-02-07 version 1.0.2
+* Renamed columns, added RDoc-style documentation, added migration generator.
+
 ## 2012-02-06 version 1.0.1
 * Cleaned up tests, added two methods: 'siblings' and 'parent'
 
