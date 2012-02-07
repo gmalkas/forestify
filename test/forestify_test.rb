@@ -48,19 +48,19 @@ class ForestifyTest < Test::Unit::TestCase
   end
 
   def test_should_be_leaf
-    assert @audi.is_leaf?
+    assert @audi.leaf?
   end
 
   def test_should_not_be_leaf
-    assert (not @vehicle.is_leaf?)
+    assert (not @vehicle.leaf?)
   end
 
   def test_should_be_node
-    assert @vehicle.is_node?
+    assert @vehicle.node?
   end
 
   def test_should_not_be_node
-    assert (not @animal.is_node?)
+    assert (not @animal.node?)
   end
 
   def test_should_have_children_when_node

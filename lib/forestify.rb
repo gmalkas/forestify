@@ -67,7 +67,7 @@ module Forestify
     end
 
     def update_positions_after_delete
-      if is_node?
+      if node?
         # Update nodes to the right
         self.class.update_all "forestify_left_position = forestify_left_position - 2", ['forestify_left_position > ?', self.forestify_right_position]
         self.class.update_all "forestify_right_position = forestify_right_position - 2", ['forestify_right_position > ?', self.forestify_right_position]
@@ -110,7 +110,7 @@ module Forestify
     #   @vehicle.children.all # => [@car, @plane, @boat, @audi]
     #   
     def children
-      [] if is_leaf?
+      [] if leaf?
       self.class.where('forestify_left_position > ?', self.forestify_left_position).where('forestify_right_position < ?', self.forestify_right_position)
     end
 
@@ -132,10 +132,10 @@ module Forestify
     #
     # Example :
     #
-    #   @car.is_node? # => true
-    #   @animal.is_node? # => false
+    #   @car.node? # => true
+    #   @animal.node? # => false
     #
-    def is_node?
+    def node?
       (self.forestify_right_position - self.forestify_left_position) > 1
     end
     
@@ -143,11 +143,11 @@ module Forestify
     #
     # Example :
     #
-    #   @car.is_leaf? # => false
-    #   @animal.is_leaf? # => true
+    #   @car.leaf? # => false
+    #   @animal.leaf? # => true
     #
-    def is_leaf?
-      !is_node?
+    def leaf?
+      !node?
     end
   end
 end

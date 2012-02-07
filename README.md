@@ -31,9 +31,9 @@ audi = Tag.create!(name: "Audi", parent_id: car.id)
 
 audi.parents
 # => [vehicle, car]
-car.is_leaf?
+car.leaf?
 # => false
-car.is_node?
+car.node?
 # => true
 vehicle.parent.nil?
 # => true
