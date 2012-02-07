@@ -1,0 +1,5 @@
+Usage :
+
+  rails generate forestify Model
+
+This generator will create a migration to add the necessary columns to your model.
