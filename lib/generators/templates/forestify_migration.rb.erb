@@ -1,0 +1,11 @@
+class <%= migration_class_name %> < ActiveRecord::Migration
+
+  def self.change
+    change_table :<%= name.underscore.camelize.tableize %> do |t|
+      t.integer :forestify_left_position
+      t.integer :forestify_right_position
+      t.integer :forestify_level
+     end
+  end
+
+end
