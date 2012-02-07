@@ -36,6 +36,8 @@ module Forestify
     before_create :initialize_position
     before_destroy :update_positions_after_delete
 
+    private :initialize_position, :update_positions_after_delete
+
     attr_accessor :parent_id
   end
 
