@@ -56,7 +56,7 @@ will create the following migration :
 ```ruby
 class AddForestifyToTag < ActiveRecord::Migration
 
-  def self.change
+  def change
     change_table :tags do |t|
       t.integer :forestify_left_position
       t.integer :forestify_right_position
